@@ -51,7 +51,7 @@ Everything is wired through Azure Key Vault for secrets — no hardcoded credent
 
 | Layer | Service |
 |---|---|
-| Data Source | OpenWeatherMap API |
+| Data Source | Free Weather API |
 | Ingestion | Azure Databricks (PySpark) + Azure Functions |
 | Messaging | Azure Event Hubs |
 | Stream Processing | Microsoft Fabric Eventstream |
@@ -69,32 +69,23 @@ azure-realtime-weather-pipeline/
 │
 ├── ingestion/
 │   ├── databricks/
-│   │   ├── weather_ingest.py        # PySpark streaming job
-│   │   ├── event_hub_writer.py      # Event Hubs publisher
-│   │   └── config.py                # Reads secrets from Key Vault
+│   │   └── weather-streaming-notebook.ipynb        # PySpark streaming job
 │   │
 │   └── azure_functions/
-│       ├── WeatherFetchFunction/
-│       │   ├── __init__.py          # Timer-triggered function
-│       │   └── function.json        # Binding config
+│       ├── function_app.py                         # Streaming
 │       ├── host.json
 │       └── requirements.txt
 │
 ├── kql/
-│   ├── create_tables.kql            # Schema definitions
-│   ├── realtime_queries.kql         # Analysis queries
-│   └── alert_queries.kql            # Queries powering Data Activator
+│   ├── weather_eventhouse_queryset.kql         # Analysis queries
+│   └── for_alerts.kql                          # Queries powering Data Activator
 │
-├── infra/
-│   ├── event_hubs_setup.md
-│   ├── key_vault_setup.md
-│   └── databricks_cluster.md
+├── architecture/
+│   └── architecture-diagram.png
 │
-├── tests/
-│   └── e2e_pipeline_test.py         # End-to-end smoke test
+├── visualization/
+│   └── Weather-Report.pbix          # PowerBI Report
 │
-├── .env.example
-├── requirements.txt
 └── README.md
 ```
 
@@ -108,7 +99,7 @@ azure-realtime-weather-pipeline/
 - Azure CLI
 - Azure Functions Core Tools v4
 - Microsoft Fabric workspace
-- OpenWeatherMap API key
+- Free Weather API key
 
 ### Clone & Install
 
